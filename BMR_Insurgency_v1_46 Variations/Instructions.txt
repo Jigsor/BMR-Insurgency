@@ -8,7 +8,7 @@ The following instructions are an example of how to build Lingor version.
 2. Download Lingor files
 	https://github.com/Jigsor/BMR-Insurgency/tree/master/BMR_Insurgency_v1_46%20Variations/BMR_Insurgency_v1_46.lingor3
 
-3. Replace Altis versioned files this Lingor versioned files.
+3. Replace Altis versioned files with Lingor versioned files.
 	Do not replace the existing directories in Altis version only the files contained in the directories.
 	These directories in Altis version contain other existing vital files. Do not delete them.
 
