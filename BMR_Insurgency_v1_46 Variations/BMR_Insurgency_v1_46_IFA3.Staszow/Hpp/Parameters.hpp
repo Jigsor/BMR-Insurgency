@@ -13,7 +13,7 @@ class Params
 	title = "		Set the start time:";
 	values[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24};
 	texts[]={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"};
-	default = 6;
+	default = 12;
 	};
 	class JIPweather//2
 	{
@@ -121,7 +121,7 @@ class Params
 	"Massi Takistan Army and Takistan Insurgents - Requirements :: @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"Massi Africian Rebel Army and Civilian Rebel supporters - Requirements :: @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"OPTRE Insurrectionists - Requirements :: @CBA_A3;@OPTRE",
-	"IFA3 Desert US Army - Rquirements :: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_Terrains_LITE;@I44_Terrains@IFA3_LITE;@IFA3_Objects_LITE;@IFA3_AIO_LITE"};
+	"IFA3 Desert US Army - Rquirements :: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE"};
 	default = 17;
 	};
 	class INS_Dum_Param4//13
