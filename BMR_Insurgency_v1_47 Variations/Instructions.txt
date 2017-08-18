@@ -1,5 +1,5 @@
-Rather than create a seperate repositiory for each version of 1.46 I've opted to create a directory of all the files wich are different from BMR_Insurgency_v1_46.Altis
-Each of these folders are the mission names for each version of 1.46.
+Rather than create a seperate repositiory for each version of 1.47 I've opted to create a directory of all the files wich are different from BMR_Insurgency_v1_47.Altis
+Each of these folders are the mission names for each version of 1.47.
 The following instructions are an example of how to build Lingor version.
 
 1. Donwload all files from Altis version.
@@ -13,10 +13,10 @@ The following instructions are an example of how to build Lingor version.
 	These directories in Altis version contain other existing vital files. Do not delete them.
 
 4. Rename the Altis version root folder
-	BMR_Insurgency_v1_46.Altis
+	BMR_Insurgency_v1_47.Altis
 	to
-	BMR_Insurgency_v1_46.lingor3
+	BMR_Insurgency_v1_47.lingor3
 	or something else of your choosing and your finished.
 
 
-//Not all v1.46 variants have yet been updated to v1.47, but note that all v1.47 code base is backwards compatible with v1.46 mission.sqm files
+//Not all v1.46 variants have yet been updated to v1.47, but note that all v1.47 code base is backwards compatible with v1.46 mission.sqm files.
