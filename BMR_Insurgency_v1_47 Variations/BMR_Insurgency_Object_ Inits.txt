@@ -1,5 +1,6 @@
 The is a list of editor placed objects in BMR Insurgency v1.47
-Also listed is the code contained in various fields
+Listed is the code contained in various fields corresponding to these objects.
+If you swap out vehicles in the editor you may need to adjust parameters for the vehicle respawn script / modules etc.
 The Named objects are not optional and mission will break if they are missing or in some cases the wrong type Ex. MHQ_3
 
 // Vehicles
