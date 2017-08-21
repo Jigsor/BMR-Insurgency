@@ -1,6 +1,6 @@
 //Objectives\delivery.sqf mission by Jigsor
 
-//bypass objecive.. currently only works with helicopter.
+//bypass objective.. currently only works with helicopter.
 if (true) exitWith {sleep 10; nul = [] execVM "Objectives\random_objectives.sqf";};
 
 sleep 2;
