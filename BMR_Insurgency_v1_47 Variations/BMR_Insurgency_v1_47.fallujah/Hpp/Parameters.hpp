@@ -55,7 +55,7 @@ class Params
 	title = "		Environment effects (ambient life + sound)";
 	values[]={0,1,2};
 	texts[]={"Ambient Life On, Ambient Sound On","Ambient Life Off, Ambient Sound On","Ambient Life Off, Ambient Sound Off"};
-	default = 0;
+	default = 1;
 	};
 	class Brighter_Nights//7
 	{
@@ -164,7 +164,7 @@ class Params
 	title = "		Grid zone deactivation delay";
 	values[]={0,0.5,1,2,3,4,5,6,8,10,12,14,16,18,20,30};
 	texts[]={"Disabled","30 seconds","1 minute","2 minutes","3 minutes","4 minutes","5 minutes","6 minutes","8 minutes","10 minutes","12 minutes","14 minutes","16 minutes","18 minutes","20 minutes","30 minutes"};
-	default = 1;
+	default = 2;
 	};
 	class EnableEnemyAir//19
 	{
