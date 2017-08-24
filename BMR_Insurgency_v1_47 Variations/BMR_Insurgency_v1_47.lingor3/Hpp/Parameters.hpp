@@ -27,7 +27,7 @@ class Params
 	"Static Weather 100% Overcast (Weather Disabled)",
 	"Dynamic Real Weather Enabled",
 	"Dynamic Random Weather Enabled"};
-	default = 2;
+	default = 3;
 	};
 	class ambRadioChatter//3
 	{
@@ -266,7 +266,7 @@ class Params
 	"BTC's cargo, towing, object placement and lifting",
 	"BTC's cargo, towing and object placement. Duda's Advanced Sling Load lifting. Heavy enabled",
 	"BTC's cargo, towing and object placement. Duda's Advanced Sling Load lifting. Heavy disabled (realistic)"};
-	default = 2;
+	default = 1;
 	};
 	class Fatigue_ability//33
 	{

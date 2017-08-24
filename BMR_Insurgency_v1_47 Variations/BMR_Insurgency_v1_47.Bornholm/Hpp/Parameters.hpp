@@ -27,7 +27,7 @@ class Params
 	"Static Weather 100% Overcast (Weather Disabled)",
 	"Dynamic Real Weather Enabled",
 	"Dynamic Random Weather Enabled"};
-	default = 25;
+	default = 0;
 	};
 	class ambRadioChatter//3
 	{
@@ -53,9 +53,9 @@ class Params
 	class INS_environment//6
 	{
 	title = "		Environment effects (ambient life + sound)";
-	values[]={0,1};
-	texts[]={"Disable","Enable"};
-	default = 1;
+	values[]={0,1,2};
+	texts[]={"Ambient Life On, Ambient Sound On","Ambient Life Off, Ambient Sound On","Ambient Life Off, Ambient Sound Off"};
+	default = 0;
 	};
 	class Brighter_Nights//7
 	{
@@ -121,7 +121,7 @@ class Params
 	"Massi Takistan Army and Takistan Insurgents - Requirements :: @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"Massi Africian Rebel Army and Civilian Rebel supporters - Requirements :: @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"OPTRE Insurrectionists - Requirements :: @CBA_A3;@OPTRE",
-	"IFA3 Desert US Army - Rquirements :: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_Terrains_LITE;@I44_Terrains@IFA3_LITE;@IFA3_Objects_LITE;@IFA3_AIO_LITE"};
+	"IFA3 Desert US Army - Rquirements :: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE"};
 	default = 3;
 	};
 	class INS_Dum_Param4//13
@@ -136,7 +136,7 @@ class Params
 	title = "		Enemy Infantry Probability";
 	values[]={25,50,75,100};
 	texts[]={"25 % chance","50 % chance","75 % chance","100 % chance"};
-	default = 50;
+	default = 75;
 	};
 	class MecArmPb//15
 	{
@@ -157,7 +157,7 @@ class Params
 	title = "		Maximum Simultaneous Activated Zone Limit";
 	values[]={10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,150,300,1000};
 	texts[]={"10","15","20","25","30","35","40","45","50","55","60","65","70","75","80","85","90","95","100","150","300","1000"};
-	default = 40;
+	default = 35;
 	};
 	class DeAct_Gzone_delay//18
 	{
@@ -178,7 +178,7 @@ class Params
 	title = "		Minimum Enemy Air Patrol Respawn Delay";
 	values[]={45,300,600,1200,1800,2400,3000,3600};
 	texts[]={"45 seconds","5 minutes","10 minutes","20 minutes","30 minutes","40 minutes","50 minutes","60 minutes"};
-	default = 2400;
+	default = 1800;
 	};
 	class PatroleWPmode//21
 	{
@@ -260,9 +260,13 @@ class Params
 	class INS_logistics//32
 	{
 	title = "		Logistics";
-	values[]={0,1};
-	texts[]={"Disabled","Enabled"};
-	default = 1;
+	values[]={0,1,2,3};
+	texts[]={
+	"Disabled",
+	"BTC's cargo, towing, object placement and lifting",
+	"BTC's cargo, towing and object placement. Duda's Advanced Sling Load lifting. Heavy enabled",
+	"BTC's cargo, towing and object placement. Duda's Advanced Sling Load lifting. Heavy disabled (realistic)"};
+	default = 2;
 	};
 	class Fatigue_ability//33
 	{
@@ -274,9 +278,9 @@ class Params
 	class EOS_DAMAGE_MULTIPLIER//34
 	{
 	title = "		Damage Multiplier (Effective hit on enemy A.I.)";
-	values[]={0.5,1,2,3};
+	values[]={50,100,200,300};
 	texts[]={"Low","Default","High","Very High"};
-	default = 2;
+	default = 200;
 	};
 	class INSpDamMul//35
 	{
@@ -327,7 +331,7 @@ class Params
 	title = "		Disable Audible AI Radio?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
-	default = 1;
+	default = 0;
 	};
 	class INS_full_loadout//42
 	{

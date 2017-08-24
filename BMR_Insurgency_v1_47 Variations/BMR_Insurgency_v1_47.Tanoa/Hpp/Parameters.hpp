@@ -27,7 +27,7 @@ class Params
 	"Static Weather 100% Overcast (Weather Disabled)",
 	"Dynamic Real Weather Enabled",
 	"Dynamic Random Weather Enabled"};
-	default = 2;
+	default = 3;
 	};
 	class ambRadioChatter//3
 	{
@@ -122,7 +122,7 @@ class Params
 	"Massi Africian Rebel Army and Civilian Rebel supporters - Requirements :: @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"OPTRE Insurrectionists - Requirements :: @CBA_A3;@OPTRE",
 	"IFA3 Desert US Army - Rquirements :: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE"};
-	default = 5;
+	default = 3;
 	};
 	class INS_Dum_Param4//13
 	{
@@ -266,7 +266,7 @@ class Params
 	"BTC's cargo, towing, object placement and lifting",
 	"BTC's cargo, towing and object placement. Duda's Advanced Sling Load lifting. Heavy enabled",
 	"BTC's cargo, towing and object placement. Duda's Advanced Sling Load lifting. Heavy disabled (realistic)"};
-	default = 2;
+	default = 1;
 	};
 	class Fatigue_ability//33
 	{
