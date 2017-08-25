@@ -16,7 +16,8 @@ The following instructions are an example of how to build Lingor version.
 	BMR_Insurgency_v1_47.Altis
 	to
 	BMR_Insurgency_v1_47.lingor3
-	or something else of your choosing and your finished.
+	or something else of your choosing and create a pbo file from this directory.
+	Finished!
 
 
 //Not all v1.46 variants have yet been updated to v1.47, but note that all v1.47 code base is backwards compatible with v1.46 mission.sqm files.
