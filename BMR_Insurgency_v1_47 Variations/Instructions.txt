@@ -13,7 +13,7 @@ The following instructions are an example of how to build Lingor version.
 	These directories in Altis version contain other existing vital files. Do not delete them.
 
 4. Rename the Altis version root folder
-	BMR_Insurgency_v1_47.Altis
+	BMR_Insurgency.Altis
 	to
 	BMR_Insurgency_v1_47.lingor3
 	or something else of your choosing and create a pbo file of this directory.
