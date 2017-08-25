@@ -16,7 +16,7 @@ The following instructions are an example of how to build Lingor version.
 	BMR_Insurgency_v1_47.Altis
 	to
 	BMR_Insurgency_v1_47.lingor3
-	or something else of your choosing and create a pbo file from this directory.
+	or something else of your choosing and create a pbo file of this directory.
 	Finished!
 
 
