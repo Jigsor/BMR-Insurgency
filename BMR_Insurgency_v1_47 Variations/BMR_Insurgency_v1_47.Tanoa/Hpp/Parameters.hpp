@@ -27,7 +27,7 @@ class Params
 	"Static Weather 100% Overcast (Weather Disabled)",
 	"Dynamic Real Weather Enabled",
 	"Dynamic Random Weather Enabled"};
-	default = 3;
+	default = 0;
 	};
 	class ambRadioChatter//3
 	{
@@ -55,7 +55,7 @@ class Params
 	title = "		Environment effects (ambient life + sound)";
 	values[]={0,1,2};
 	texts[]={"Ambient Life On, Ambient Sound On","Ambient Life Off, Ambient Sound On","Ambient Life Off, Ambient Sound Off"};
-	default = 0;
+	default = 1;
 	};
 	class Brighter_Nights//7
 	{
