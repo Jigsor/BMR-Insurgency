@@ -27,7 +27,7 @@ class Params
 	"Static Weather 100% Overcast (Weather Disabled)",
 	"Dynamic Real Weather Enabled",
 	"Dynamic Random Weather Enabled"};
-	default = 2;
+	default = 0;
 	};
 	class ambRadioChatter//3
 	{
@@ -53,8 +53,8 @@ class Params
 	class INS_environment//6
 	{
 	title = "		Environment effects (ambient life + sound)";
-	values[]={0,1};
-	texts[]={"Disable","Enable"};
+	values[]={0,1,2};
+	texts[]={"Ambient Life On, Ambient Sound On","Ambient Life Off, Ambient Sound On","Ambient Life Off, Ambient Sound Off"};
 	default = 1;
 	};
 	class Brighter_Nights//7
@@ -121,7 +121,7 @@ class Params
 	"Massi Takistan Army and Takistan Insurgents - Requirements :: @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"Massi Africian Rebel Army and Civilian Rebel supporters - Requirements :: @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"OPTRE Insurrectionists - Requirements :: @CBA_A3;@OPTRE",
-	"IFA3 Desert US Army - Rquirements :: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_Terrains_LITE;@I44_Terrains@IFA3_LITE;@IFA3_Objects_LITE;@IFA3_AIO_LITE"};
+	"IFA3 Desert US Army - Rquirements :: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE"};
 	default = 8;
 	};
 	class INS_Dum_Param4//13
@@ -136,7 +136,7 @@ class Params
 	title = "		Enemy Infantry Probability";
 	values[]={25,50,75,100};
 	texts[]={"25 % chance","50 % chance","75 % chance","100 % chance"};
-	default = 75;
+	default = 50;
 	};
 	class MecArmPb//15
 	{
@@ -260,8 +260,12 @@ class Params
 	class INS_logistics//32
 	{
 	title = "		Logistics";
-	values[]={0,1};
-	texts[]={"Disabled","Enabled"};
+	values[]={0,1,2,3};
+	texts[]={
+	"Disabled",
+	"BTC's cargo, towing, object placement and lifting",
+	"BTC's cargo, towing and object placement. Duda's Advanced Sling Load lifting. Heavy enabled",
+	"BTC's cargo, towing and object placement. Duda's Advanced Sling Load lifting. Heavy disabled (realistic)"};
 	default = 1;
 	};
 	class Fatigue_ability//33
@@ -274,9 +278,9 @@ class Params
 	class EOS_DAMAGE_MULTIPLIER//34
 	{
 	title = "		Damage Multiplier (Effective hit on enemy A.I.)";
-	values[]={0.5,1,2,3};
+	values[]={50,100,200,300};
 	texts[]={"Low","Default","High","Very High"};
-	default = 2;
+	default = 200;
 	};
 	class INSpDamMul//35
 	{
