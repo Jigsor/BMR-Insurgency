@@ -55,7 +55,7 @@ class Params
 	title = "		Environment effects (ambient life + sound)";
 	values[]={0,1,2};
 	texts[]={"Ambient Life On, Ambient Sound On","Ambient Life Off, Ambient Sound On","Ambient Life Off, Ambient Sound Off"};
-	default = 1;
+	default = 0;
 	};
 	class Brighter_Nights//7
 	{
@@ -122,7 +122,7 @@ class Params
 	"Massi Africian Rebel Army and Civilian Rebel supporters - Requirements :: @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"OPTRE Insurrectionists - Requirements :: @CBA_A3;@OPTRE",
 	"IFA3 Desert US Army - Rquirements :: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE"};
-	default = 7;
+	default = 9;
 	};
 	class INS_Dum_Param4//13
 	{
@@ -136,7 +136,7 @@ class Params
 	title = "		Enemy Infantry Probability";
 	values[]={25,50,75,100};
 	texts[]={"25 % chance","50 % chance","75 % chance","100 % chance"};
-	default = 50;
+	default = 75;
 	};
 	class MecArmPb//15
 	{
@@ -150,14 +150,14 @@ class Params
 	title = "		Enemy AI Spawn Trigger Distance";
 	values[]={200,250,300,350,400,450,500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250};
 	texts[]={"200","250","300","350","400","450","500","550","600","650","700","750","800","850","900","950","1000","1050","1100","1150","1200","1250"};
-	default = 300;
+	default = 350;
 	};
 	class Max_Act_Gzones//17
 	{
 	title = "		Maximum Simultaneous Activated Zone Limit";
 	values[]={10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,150,300,1000};
 	texts[]={"10","15","20","25","30","35","40","45","50","55","60","65","70","75","80","85","90","95","100","150","300","1000"};
-	default = 35;
+	default = 25;
 	};
 	class DeAct_Gzone_delay//18
 	{
@@ -178,7 +178,7 @@ class Params
 	title = "		Minimum Enemy Air Patrol Respawn Delay";
 	values[]={45,300,600,1200,1800,2400,3000,3600};
 	texts[]={"45 seconds","5 minutes","10 minutes","20 minutes","30 minutes","40 minutes","50 minutes","60 minutes"};
-	default = 2400;
+	default = 1800;
 	};
 	class PatroleWPmode//21
 	{
@@ -220,7 +220,7 @@ class Params
 	title = "		Ambient Mobile Civilians?";
 	values[]={0,1,2,3,4};
 	texts[]={"No","1 Per Player","2 Per Player","3 Per Player","4 Per Player"};
-	default = 0;
+	default = 1;
 	};
 	class CiviFoot//27
 	{
@@ -234,7 +234,7 @@ class Params
 	title = "		Ambient Foot Civilians Probability";
 	values[]={25,50,75,100};
 	texts[]={"25 % chance","50 % chance","75 % chance","100 % chance"};
-	default = 75;
+	default = 100;
 	};
 	class SuicideBombers//29
 	{
@@ -266,7 +266,7 @@ class Params
 	"BTC's cargo, towing, object placement and lifting",
 	"BTC's cargo, towing and object placement. Duda's Advanced Sling Load lifting. Heavy enabled",
 	"BTC's cargo, towing and object placement. Duda's Advanced Sling Load lifting. Heavy disabled (realistic)"};
-	default = 2;
+	default = 1;
 	};
 	class Fatigue_ability//33
 	{
