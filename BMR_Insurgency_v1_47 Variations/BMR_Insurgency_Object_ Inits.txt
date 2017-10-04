@@ -101,7 +101,7 @@ The Named objects are not optional and mission will break if they are missing or
 		// custom loadouts for aircraft using vehicle respawn module are defined in INSfncs\fn_airLoadoutDefs.sqf
 			expession field:	if (isServer) then {params [["_newVeh",objNull],["_oldVeh",objNull]];  0 = [_newVeh, dynPylons1] call BMRINS_fnc_replacePylons; private _sensors = listVehicleSensors _oldVeh; 0 = [_newVeh,_oldVeh,_sensors] call BMRINS_fnc_reinstateSensors;};
 
-	//CUP
+	// CUP
 		// Cobra CUP_B_AH1Z_Dynamic_USMC
 			// editor customized loadout
 			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; CobraPylons1 = getPylonMagazines this; _nul = [this, 30, 1, {[_this] call anti_collision; [_this, CobraPylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf";};		
@@ -111,7 +111,18 @@ The Named objects are not optional and mission will break if they are missing or
 		//WyldeCat AW159
 			// editor customized loadout
 			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; WyldeCatPylons1 = getPylonMagazines this; _nul = [this, 30, 1, {[_this] call paint_heli_fnc;[_this] call anti_collision;[_this, WyldeCatPylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf"; 0 = [this] spawn {params ["_veh"]; waitUntil {!isNil "paint_heli_fnc"}; [_veh] call paint_heli_fnc};};
-			
+
+	// RHS
+		// RHS_MELB_AH6M
+			//editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; INSmelb1 = getPylonMagazines this; this addweapon "CMFlareLauncher";this addmagazine "120Rnd_CMFlare_Chaff_Magazine"; _nul = [this, 30, 1, {[_this] call anti_collision; [_this, INSmelb1] call INS_replace_pylons;[_this] call add_veh_flare;}] execVM "vehrespawn.sqf";};
+		// RHS_AH64D_wd
+			//editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; INSapache1 = getPylonMagazines this; _nul = [this, 30, 1, {[_this] call anti_collision;[_this, INSapache1] call BMRINS_fnc_replacePylons}] execVM "vehrespawn.sqf";};
+		// RHS_AH1Z_wd
+			//editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; INScobra1 = getPylonMagazines this; _nul = [this, 30, 1, {[_this] call anti_collision;[_this, INScobra1] call BMRINS_fnc_replacePylons}] execVM "vehrespawn.sqf";};
+
 // Opfor Supply Box or any opfor ammo box
 	name: INS_sup_Cbox
 		init: this allowdamage false;this addEventHandler ["HandleDamage", {}];if (isServer) then {Op4addedSupplies = ["optic_Aco","optic_ACO_grn","optic_ARCO","optic_Hamr"];{INS_sup_Cbox addItemCargoGlobal [_x, 2];} count Op4addedSupplies;};
