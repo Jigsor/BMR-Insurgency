@@ -287,7 +287,7 @@ class Params
 	title = "		Damage Multiplier (Effective hit on Player) - not used when ACE3 mod is loaded";
 	values[]={50,60,70,80,90,100,110,120,130,140,150};
 	texts[]={"50%","60%","70%","80%","90%","100% (Unmodified Default)","110%","120%","130%","140%","150%"};
-	default = 60;
+	default = 100;
 	};
 	class JigHeliExtraction//36
 	{
