@@ -122,6 +122,9 @@ The Named objects are not optional and mission will break if they are missing or
 		// RHS_AH1Z_wd
 			//editor customized loadout
 			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; INScobra1 = getPylonMagazines this; _nul = [this, 30, 1, {[_this] call anti_collision;[_this, INScobra1] call BMRINS_fnc_replacePylons}] execVM "vehrespawn.sqf";};
+		// RHS Hueys
+			//editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; INShuey1 = getPylonMagazines this; _nul = [this, 60, 1, {[_this] call anti_collision;[_this, INShuey1] call BMRINS_fnc_replacePylons}] execVM "vehrespawn.sqf";};
 
 // Opfor Supply Box or any opfor ammo box
 	name: INS_sup_Cbox
