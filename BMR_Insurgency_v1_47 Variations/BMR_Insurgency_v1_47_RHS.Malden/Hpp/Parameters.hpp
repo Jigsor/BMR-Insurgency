@@ -280,7 +280,7 @@ class Params
 	title = "		Damage Multiplier (Effective hit on enemy A.I.)";
 	values[]={50,100,200,300};
 	texts[]={"Low","Default","High","Very High"};
-	default = 100;
+	default = 200;
 	};
 	class INSpDamMul//35
 	{

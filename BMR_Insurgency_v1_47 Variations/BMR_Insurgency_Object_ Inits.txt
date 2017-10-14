@@ -125,6 +125,13 @@ The Named objects are not optional and mission will break if they are missing or
 		// RHS Hueys
 			//editor customized loadout
 			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; INShuey1 = getPylonMagazines this; _nul = [this, 60, 1, {[_this] call anti_collision;[_this, INShuey1] call BMRINS_fnc_replacePylons}] execVM "vehrespawn.sqf";};
+		// BlackHawks with custom dynamic loadoutouts ex. RHS_UH60M_ESSS_d
+			//editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; INSblackHawk1 = getPylonMagazines this; _nul = [this, 60, 1, {[_this] call anti_collision;[_this, INSblackHawk1] call BMRINS_fnc_replacePylons}] execVM "vehrespawn.sqf";};
+		// BlackHawks without dynamic loadouts ex. RHS_UH60M_d
+			init: _nul = [this, 60, 1, {[_this] call anti_collision}] execVM "vehrespawn.sqf"; if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];};
+
+
 
 // Opfor Supply Box or any opfor ammo box
 	name: INS_sup_Cbox
@@ -230,7 +237,7 @@ The Named objects are not optional and mission will break if they are missing or
 
 	//structure protection - place within 50 meters of hangers and cars ports ect.
 	name: exclude_damage	// name is not neccessary
-		init: {((getPos this) nearestobject _x) allowDamage false;} ForEach ["Land_TentHangar_V1_F","Land_Hangar_F","Land_Shed_Small_F","Land_Shed_Big_F","Land_i_Shed_Ind_F","Land_Mil_hangar_EP1","Land_Ind_Shed_01_EP1","Land_Ind_Shed_02_EP1","Land_Ss_hangar","Land_Ind_Shed_02_main"];
+		init: {((getPos this) nearestobject _x) allowDamage false;} ForEach ["Land_TentHangar_V1_F","Land_Hangar_F","Land_Shed_Small_F","Land_Shed_Big_F","Land_i_Shed_Ind_F","Land_Mil_hangar_EP1","Land_Ind_Shed_01_EP1","Land_Ind_Shed_02_EP1","Land_Ss_hangar","Land_Ind_Shed_02_main","Land_Airport_01_hangar_F"];
 
 	name: jig_anode		// place where you want lightning bolt on into to strike  (depricated)
 	name: BTC_logic
