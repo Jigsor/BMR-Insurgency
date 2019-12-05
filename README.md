@@ -1,2 +1,2 @@
 # BMR-Insurgency
-BMR Insugency Main Repository
+BMR Insugency Files Differences Repository
