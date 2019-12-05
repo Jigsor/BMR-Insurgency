@@ -1,0 +1,327 @@
+The is a list of editor placed objects in BMR Insurgency v1.50
+Listed is the code contained in various fields corresponding to these objects.
+If you swap out vehicles in the editor you may need to adjust parameters for the vehicle respawn script / modules etc.
+The Named objects are not optional and mission will break if they are missing or in some cases the wrong type Ex. MHQ_3
+
+// Vehicles
+
+	// Can be any wheeled vehicle and may possibly be compatable with other vehicles types
+	name: MHQ_1
+		init: missionNamespace setVariable ["MHQ_1", this];
+
+	// Can be any wheeled vehicle and may possibly be compatable with other vehicles types
+	name: MHQ_2
+		init: missionNamespace setVariable ["MHQ_2", this];
+
+	// - Only Mohawk-"I_Heli_Transport_02_F", RHS CH53-"rhsusf_CH53E_USMC_D"/"rhsusf_CH53E_USMC_W", CUP Merlin-"CUP_B_Merlin_HC3A_Armed_GB", OPTRE Pelican-"OPTRE_Pelican_armed_black" and FFAA-"ffaa_nh90_nfh_transport" supported so far.
+	name: MHQ_3
+		init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];};
+
+	// - O_Truck_02_medical_F	can be any wheeled vehicle
+	name: Opfor_MHQ
+		init: missionNamespace setVariable ["Opfor_MHQ", this];
+
+	//Hellcat
+		init: _nul = [this, 20, 1, {[_this] call paint_heli_fnc;[_this] call anti_collision}] execVM "vehrespawn.sqf"; if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; _nul = [this] spawn {_veh = _this select 0; waitUntil {!isNil "paint_heli_fnc"}; [_veh] call paint_heli_fnc;};};
+		//dynamic loadout version editor loadout init:
+		if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; HellCatPylons1 = getPylonMagazines this; _nul = [this, 30, 1, {[_this] call paint_heli_fnc;[_this] call anti_collision;[_this, HellCatPylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf"; 0 = [this] spawn {params ["_veh"]; waitUntil {!isNil "paint_heli_fnc"}; [_veh] call paint_heli_fnc};};
+
+	//unnamed blufor 2nd Mohawk
+		init: _nul = [this, 30, 1, {[_this] call paint_heli_fnc;[_this] call anti_collision}] execVM "vehrespawn.sqf"; if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; _nul = [this] spawn {_veh = _this select 0; waitUntil {!isNil "paint_heli_fnc"}; [_veh] call paint_heli_fnc;};};
+
+	//unnamed opfor Mohawk/lift chopper
+		init: _nul = [this, 60, 1, {[_this] call anti_collision}] execVM "vehrespawn.sqf"; if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];};
+
+	//Little Birds
+		init: _nul = [this, 2, 1, {[_this] call add_veh_flare;[_this] call anti_collision}] execVM "vehrespawn.sqf";if (isServer) then {this addweapon "CMFlareLauncher";this addmagazine "120Rnd_CMFlare_Chaff_Magazine";this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];};
+		//dynamic editor loadout
+		if (isServer) then {this addweapon "CMFlareLauncher"; this addmagazine "120Rnd_CMFlare_Chaff_Magazine"; this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; DynPawneePylons1 = getPylonMagazines this;_nul = [this, 2, 1, {[_this] call add_veh_flare;[_this] call anti_collision;[_this, DynPawneePylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf";};
+		//Pawnee Angry Bird	"B_Heli_Light_01_dynamicLoadout_F" init:
+		if (isServer) then {this addweapon "CMFlareLauncher"; this addmagazine "120Rnd_CMFlare_Chaff_Magazine"; this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; _nul = [this, 2, 1, {[_this] call add_veh_flare;[_this] call anti_collision;[_this, dynPylons7] call INS_replace_pylons}] execVM "vehrespawn.sqf"; 0 = [this] spawn {params ["_veh"]; waitUntil {!isNil "INS_replace_pylons"}; [_veh, dynPylons7] call INS_replace_pylons;};};
+
+	//BlackFoot
+		init: _nul = [this, 2, 1, {[_this] call anti_collision}] execVM "vehrespawn.sqf"; if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];};
+		//dynamic loadout version with editor loadout
+		if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; BlackFootPylons1 = getPylonMagazines this; _nul = [this, 30, 1, {[_this] call anti_collision;[_this, BlackFootPylons1] call BMRINS_fnc_replacePylons}] execVM "vehrespawn.sqf";};
+
+
+	//GhostHawk
+		init: _nul = [this, 60, 1, {[_this] call anti_collision}] execVM "vehrespawn.sqf"; if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];};
+
+	//Huron
+		init: _nul = [this, 60, 1, {[_this] call anti_collision}] execVM "vehrespawn.sqf"; if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];};
+
+	//UAV-GreyHawk
+		init: _nul = [this, 2, 1, {[_this] call add_UAV_crew;[_this] call anti_collision}] execVM "vehrespawn.sqf"; if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; createVehicleCrew this;};
+		// editor custom loadout
+		init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; GreyHawkPylons1 = getPylonMagazines this; createVehicleCrew this; _nul = [this, 2, 1, {[_this] call anti_collision; [_this, GreyHawkPylons1] call INS_replace_pylons; [_this] call add_UAV_crew}] execVM "vehrespawn.sqf";};
+
+	//UAV-Falcon
+	  //basic
+		init: _nul = [this, 2, 1, {[_this] call add_UAV_crew}] execVM "vehrespawn.sqf"; if (isServer) then {createVehicleCrew this;};
+	  //with editor modified loadout
+		init: if (isServer) then {createVehicleCrew this; falconPylons1 = getPylonMagazines this; _nul = [this, 2, 1, {[_this] call add_UAV_crew;[_this, falconPylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf";};
+
+	//Black Fish
+		init: _nul = [this, 60, 1, {[_this] call anti_collision}] execVM "vehrespawn.sqf"; if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];};
+	// Skined Black Fish
+		init: _nul = [this, 60, 1, {[_this] call anti_collision; _this setObjectTextureGlobal [0,'images\bmrbw.paa']}] execVM "vehrespawn.sqf"; if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; this setObjectTextureGlobal [0,'images\bmrbw.paa'];};
+
+	//UAV-Darter
+		init: _nul = [this, 2, 1, {[_this] call add_UAV_crew}] execVM "vehrespawn.sqf"; if (isServer) then {createVehicleCrew this;};
+
+	//UAV-Sentinal
+		init: if (isServer) then {pylons3 = getPylonMagazines this; this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; createVehicleCrew this; this animate ["wing_fold_l", 1, true]; this animate ["wing_fold_r", 1, true];_nul = [this, 2, 1, {[_this] call INS_fold_wings;[_this] call add_UAV_crew;[_this] call anti_collision;[_this, pylons3] call INS_replace_pylons}] execVM "vehrespawn.sqf";};
+
+	//Bobcat, Medical, Repair, Fuel and Ammo Trucks
+		init: _nul = [this, 60, 1, {}] execVM "vehrespawn.sqf";
+
+	//SpeedBoat-Minigun
+		init: _nul = [this, 40, 1, {[_this] call Push_Acc}] execVM "vehrespawn.sqf"; this addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
+
+	//SDV-submarine
+		init: _nul = [this, 60, 1, {[_this] call Push_Acc}] execVM "vehrespawn.sqf"; this addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
+
+	//AssaultBoat-inflatable
+		init: _nul = [this, 60, 1, {[_this] call Push_Acc}] execVM "vehrespawn.sqf"; this addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
+
+	//Autonomous Turrets on USS Freedom
+		init: this allowdamage false; if (isServer) then {this addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];};
+
+	//Autonomous Turrets on base unmaned phalanx type "B_AAA_System_01_F"
+		init: if (isServer) then {_nul = [this, 720, 1, {[_this] call add_UAV_crew;[_this] call INS_noBTC_Logistics;[_this] call INS_unilimitedAmmo}] execVM "vehrespawn.sqf"; createVehicleCrew this; this setVariable ["BTC_cannot_lift",1,true]; this setVariable ["BTC_cannot_drag",1,true]; this setVariable ["BTC_cannot_load",1,true]; this setVariable ["BTC_cannot_place",1,true]; this addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];};
+
+	//Customized Load Out Plane using vehicle respawn script and vehicle editor defined custom loadouts// increase variable pylons1 by 1 for each plane ex. next custom plane swap pylons1 for pylons2 etc.
+		init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]);this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];pylons1 = getPylonMagazines this;_nul = [this, 2, 1, {[_this] call anti_collision; [_this, pylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf";};
+		// Black Wasp non stealth using vehicle respawn script and custom non editor defined loadout in this case dynPylons3 wich is defined in fn_airLoadoutDefs.sqf as a multirole.
+		init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]);this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];_nul = [this, 2, 1, {[_this] call anti_collision; [_this, dynPylons3] call INS_replace_pylons}] execVM "vehrespawn.sqf";0 = [this, dynPylons3] call BMRINS_fnc_replacePylons;};
+
+	// BIS vehicle respawn module used for carrier placed aircraft "ModuleRespawnVehicle_F". Must create and link a different module for each aircraft with custom loadlout.
+		// custom loadouts for aircraft using vehicle respawn module are defined in INSfncs\fn_airLoadoutDefs.sqf
+			expession field:	if (isServer) then {params [["_newVeh",objNull],["_oldVeh",objNull]];  0 = [_newVeh, dynPylons1] call BMRINS_fnc_replacePylons; private _sensors = listVehicleSensors _oldVeh; 0 = [_newVeh,_oldVeh,_sensors] call BMRINS_fnc_reinstateSensors;};
+
+	// CUP
+		//Cobra CUP_B_AH1Z_Dynamic_USMC
+			// editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; CobraPylons1 = getPylonMagazines this; _nul = [this, 30, 1, {[_this] call anti_collision; [_this, CobraPylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf";};
+		//AH6M
+			// editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; AngryBird1 = getPylonMagazines this; this addweapon "CMFlareLauncher";this addmagazine "120Rnd_CMFlare_Chaff_Magazine"; _nul = [this, 30, 1, {[_this] call anti_collision; [_this, AngryBird1] call INS_replace_pylons;[_this] call add_veh_flare;}] execVM "vehrespawn.sqf";};
+		//WyldeCat AW159
+			// editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; WyldeCatPylons1 = getPylonMagazines this; _nul = [this, 30, 1, {[_this] call paint_heli_fnc;[_this] call anti_collision;[_this, WyldeCatPylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf"; 0 = [this] spawn {params ["_veh"]; waitUntil {!isNil "paint_heli_fnc"}; [_veh] call paint_heli_fnc};};
+		//BlackHawk CUP_B_MH60L_DAP_4x_US
+			// editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; BlackHawk1 = getPylonMagazines this; _nul = [this, 60, 1, {[_this] call anti_collision; [_this, BlackHawk1] call INS_replace_pylons}] execVM "vehrespawn.sqf";};
+		//Predator UAV CUP_B_USMC_DYN_MQ9
+			// editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; createVehicleCrew this; BMRpredator1 = getPylonMagazines this; _nul = [this, 2, 1, {[_this] call anti_collision;[_this, BMRpredator1] call INS_replace_pylons;[_this] call add_UAV_crew}] execVM "vehrespawn.sqf";};
+
+	// RHS
+		//RHS_MELB_AH6M
+			//editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; INSmelb1 = getPylonMagazines this; this addweapon "CMFlareLauncher";this addmagazine "120Rnd_CMFlare_Chaff_Magazine"; _nul = [this, 30, 1, {[_this] call anti_collision; [_this, INSmelb1] call INS_replace_pylons;[_this] call add_veh_flare;}] execVM "vehrespawn.sqf";};
+		//RHS_AH64D_wd
+			//editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; INSapache1 = getPylonMagazines this; _nul = [this, 30, 1, {[_this] call anti_collision;[_this, INSapache1] call BMRINS_fnc_replacePylons}] execVM "vehrespawn.sqf";};
+		//RHS_AH1Z_wd
+			//editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; INScobra1 = getPylonMagazines this; _nul = [this, 30, 1, {[_this] call anti_collision;[_this, INScobra1] call BMRINS_fnc_replacePylons}] execVM "vehrespawn.sqf";};
+		//RHS Hueys
+			//editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; INShuey1 = getPylonMagazines this; _nul = [this, 60, 1, {[_this] call anti_collision;[_this, INShuey1] call BMRINS_fnc_replacePylons}] execVM "vehrespawn.sqf";};
+		//BlackHawks with custom dynamic loadoutouts ex. RHS_UH60M_ESSS_d
+			//editor customized loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; INSblackHawk1 = getPylonMagazines this; _nul = [this, 60, 1, {[_this] call anti_collision;[_this, INSblackHawk1] call BMRINS_fnc_replacePylons}] execVM "vehrespawn.sqf";};
+		//BlackHawks without dynamic loadouts ex. RHS_UH60M_d
+			init: _nul = [this, 60, 1, {[_this] call anti_collision}] execVM "vehrespawn.sqf"; if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];};
+
+	// FFAA
+		//A3 Hellcat dynamic Loadout with FFAA skin
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; this setObjectTextureGlobal [0,"ffaa_et_ch47\data\ch47_ext_des_2_co.paa"]; HellCatPylons1 = getPylonMagazines this; _nul = [this, 30, 1, {_this setObjectTextureGlobal [0,"ffaa_et_ch47\data\ch47_ext_des_2_co.paa"];[_this] call anti_collision;[_this, HellCatPylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf";}
+		//FFAA Chinook with FFAA skins
+			init: if (isServer) then {_nul = [this, 60, 1, {[_this] call anti_collision; private _textures=["ffaa_et_ch47\data\ch47_ext_des_1_co.paa","ffaa_et_ch47\data\ch47_ext_des_2_co.paa","ffaa_data\numeros\n_1_0_ca.paa","ffaa_data\numeros\n_1_6_ca.paa","ffaa_data\numeros\b_1_0_ca.paa","ffaa_data\numeros\b_1_6_ca.paa"]; private _c=0; {_this setObjectTextureGlobal [_c,_x]; _c=_c + 1;} forEach _textures;}] execVM "vehrespawn.sqf"; this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; private _textures=["ffaa_et_ch47\data\ch47_ext_des_1_co.paa","ffaa_et_ch47\data\ch47_ext_des_2_co.paa","ffaa_data\numeros\n_1_0_ca.paa","ffaa_data\numeros\n_1_6_ca.paa","ffaa_data\numeros\b_1_0_ca.paa","ffaa_data\numeros\b_1_6_ca.paa"]; private _c=0; {this setObjectTextureGlobal [_c,_x]; _c=_c + 1;} forEach _textures;}
+		//FFAA tiger example with dynamic editor loadout
+			init: if (isServer) then {FFAAheliPylons1 = getPylonMagazines this;_nul = [this, 2, 1, {[_this] call anti_collision; [_this, FFAAheliPylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf"; this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];};
+		//FFAA C-130
+			init: if (isServer) then {_nul = [this, 60, 1, {[_this] call anti_collision}] execVM "vehrespawn.sqf"; this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];};
+		//FFAA Harrierwith dynamic loadout type "ffaa_ar_harrier"
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]);this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];Harrierpylons1 = getPylonMagazines this;_nul = [this, 2, 1, {[_this] call anti_collision; [_this, Harrierpylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf";};
+		//FFAA UAV Predator dynamic loadout type "ffaa_ea_reaper"
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; PredatorPylons1 = getPylonMagazines this; createVehicleCrew this; _nul = [this, 2, 1, {[_this] call anti_collision; [_this, PredatorPylons1] call INS_replace_pylons; [_this] call add_UAV_crew}] execVM "vehrespawn.sqf";};
+
+// Opfor Supply Box or any opfor ammo box
+	name: INS_sup_Cbox
+		init: this allowdamage false;this addEventHandler ["HandleDamage", {}];if (isServer) then {Op4addedSupplies = ["optic_Aco","optic_ACO_grn","optic_ARCO","optic_Hamr"];{INS_sup_Cbox addItemCargoGlobal [_x, 2];} count Op4addedSupplies;};
+
+	IFA3 WWII versioned  op4 supply box:
+	name: INS_sup_Cbox
+		this allowdamage false;this addEventHandler ["HandleDamage", {}];if (isServer) then {Op4addedSupplies = ["Medikit","FirstAidKit"]; {INS_sup_Cbox addItemCargoGlobal [_x, 2];} count Op4addedSupplies;};
+
+// Blufor main box
+	name: INS_Wep_box
+		init: this enablesimulation false;this allowdamage false;
+
+// All other ammo boxes
+	Opfor ammo box names: INS_weps_Cbox,INS_ammo_Cbox,INS_nade_Cbox,INS_launchers_Cbox,INS_demo_Cbox,INS_E_tent
+	Blufor ammo box names: INS_weps_Nbox,INS_ammo_Nbox,INS_nade_Nbox,INS_launchers_Nbox,INS_sup_Nbox
+		init: this allowdamage false;this addEventHandler ["HandleDamage", {}];
+
+
+
+//Siren1 - Land_Loudspeakers_F
+	name: INS_BF_Siren1
+		init: this allowdamage false;
+
+//Siren2 - Land_Loudspeakers_F
+	name: INS_BF_Siren2
+		init: this allowdamage false;
+
+// Dock
+	name: pier1
+		init: this enablesimulation false;this allowdamage false;this setVectorUp [0,0,1];this setPos [getPos this select 0,( getPos this select 1) -4,-4.24];
+
+// Illuminated helipad
+	type: Land_HelipadCircle_F
+		init: null = [this] execVM "scripts\ADF_helipadLights.sqf";
+
+// Delivey Box used in Delivery Objective
+	type: Land_CargoBox_V1_F
+		name: Delivery_Box
+			init: this allowdamage false;
+
+
+
+// Sensors:
+	name: taxirepair2
+		condition: ("Air" countType thislist > 0) && ((getpos (thislist select 0)) select 2 <= 1)
+			on activation: _xhandle= (thislist select 0) execVM "scripts\x_reload.sqf";
+
+	name: helirepair
+		condition: (getPos ((list helirepair) select 0) select 2) <= 1
+			on activation: _xhandle= (thislist select 0) execVM "scripts\x_reload.sqf";
+
+	name: none (land vehicle service)
+		condition: ("LandVehicle" countType thislist  > 0) && ((getpos (thislist select 0)) select 2 < 1)
+			on activation: _xhandle= (thislist select 0) execVM "scripts\x_reload.sqf";
+
+	name: taxirepair
+		condition: ("Air" countType thislist  > 0) && ((getpos (thislist select 0)) select 2 <= 1)
+				//or
+				(getPos ((list taxirepair) select 0) select 2) <= 1
+		on activation: _xhandle= (thislist select 0) execVM "scripts\x_reload.sqf";
+
+	name: trig_alarm1init
+		condition: activation OPFOR
+			this
+			on activation: alarm1On = true; _nul = [((list trig_alarm1init) select 0),trig_alarm1init] call JIG_base_protection;
+
+	name: trig_alarm2init
+		condition: activation Independant
+			this
+			on activation: alarm1On = true; _nul = [((list trig_alarm2init) select 0),trig_alarm2init] call JIG_base_protection;
+
+	//optional Ex. Fallujah has 2 bases
+	name: trig_alarm3init
+		condition: activation OPFOR
+			this
+			on activation: alarm1On = true; _nul = [((list trig_alarm3init) select 0),trig_alarm3init] call JIG_base_protection;
+
+	//optional Ex. Fallujah has 2 bases
+	name: trig_alarm4init
+		condition: activation Independant
+			this
+			on activation: alarm1On = true; _nul = [((list trig_alarm4init) select 0),trig_alarm4init] call JIG_base_protection;
+
+	name: trig_alarm1
+		condition: alarm1On
+			on activation: nul = [] spawn INS_BluFor_Siren
+				deactivation: alarm1On = false
+
+
+
+// Game Logics
+	name: Server
+		init: {_x setmarkeralphalocal 0} foreach ["Respawn_East","Respawn_West","Helicopters","Mechanized","HelicopterRepair","AircraftMaintenance","VehicleMaintenance","Halo","Dock","IEDa","IED1","IED2","IED3","IED4","IED5","IED6","IED7","IED8","IED9","IED10","IED11","IED12","IED13","IED14","IED15","IED16","sidemiss1","sidemiss2","sidemiss3","sidemiss4","sidemiss5","sidemiss6","sidemiss7","sidemiss8","sidemiss9","sidemiss10","sidemiss11","sidemiss12","civmkr1","civmkr2","civmkr3","civmkr4","civmkr5","civmkr6","civmkr7","civmkr8","civmkr9","civmkr10","civmkr11","civmkr12","civmkr13","civmkr14","civmkr15","civmkr16","civmkr17"];
+
+	name: center
+	// place near center of terrain or near bulk of zones. - must place on land
+
+	name: HC_1
+	// Under Game Logics - Virtual Entities - Headless Client. Must set playable
+
+
+// Pseudo Game Logics - Grass cutter small - "Land_ClutterCutter_small_F"
+	name: camstart	//best to place on mountain / hill top. Change 540 according to desired intro cam start height
+		init: if (isServer) then {this setPos [getPos this select 0, getPos this select 1, (getPos this select 2) + 540];};
+
+	name: INS_fw_1	//set this object  where and in what direction you want fixed wing asset to spawn.
+
+	//structure protection - place this and copies of this within 50 meters of hangers and cars ports etc.
+	name: exclude_damage	// name is not neccessary
+		init: {((getPos this) nearestobject _x) allowDamage false;} ForEach ["Land_TentHangar_V1_F","Land_Hangar_F","Land_Shed_Small_F","Land_Shed_Big_F","Land_i_Shed_Ind_F","Land_Mil_hangar_EP1","Land_Ind_Shed_01_EP1","Land_Ind_Shed_02_EP1","Land_Ss_hangar","Land_Ind_Shed_02_main","Land_Airport_01_hangar_F","Land_Airport_02_hangar_left_F","Land_Airport_02_hangar_right_F","Land_Hangar_2","Land_ServiceHangar_01_L_F","Land_ServiceHangar_01_R_F"];
+
+
+	name: jig_anode		// place where you want lightning bolt on into to strike  (depricated)
+	name: BTC_logic
+	name: objective_pos_logic
+	name: air_pat_pos
+	name: air_pat_cycle
+	name: air_pat_west
+	name: air_pat_east
+	name: EastAirLogic
+	name: Del_box_Pos	type: Land_ClutterCutter_small_F	// place next to MHQ_3 aproximately 5-7 meters
+
+
+//Playable units
+	 name: CAS1	// this is the only other named playable unit besides headless client. This unit should be a group leader and set as Player
+
+//Base Defence Statics - Initializations:
+	//leader/AA launcher:
+		init: if (isServer) then {this addeventhandler ["fired", {(_this select 0) setvehicleammo 1}]; BaseDefence = group this;};
+
+	//group members:
+		init: if (isServer) then {this addeventhandler ["fired", {(_this select 0) setvehicleammo 1}]; [this] join BaseDefence;};
+
+	//place on top of a radio tower ex. "Land_radar_EP1" -
+			init: if (isServer) then {this addeventhandler ["fired", {(_this select 0) setvehicleammo 1}]; [this] join BaseDefence; nul = [getPosATL this, [this], 50, 2, [0,33], true, false] execVM "scripts\SHK_buildingpos.sqf";};
+
+	//Sandbag wall round "Land_BagFence_Round_F"
+			init: if (isServer) then {this setVariable["persistent",true];};
+
+	// Crewed Praetorian on USS Freedom type: B_AAA_System_01_F
+		//check mark allow damage false
+		init:
+			if (isServer) then {
+				this setVariable ["BTC_cannot_lift",1,true];
+				this setVariable ["BTC_cannot_drag",1,true];
+				this setVariable ["BTC_cannot_load",1,true];
+				this setVariable ["BTC_cannot_place",1,true];
+				this addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];
+			};
+
+	// Empty Praetorian on Base type: B_AAA_System_01_F
+		//check mark allow damage false
+		init:
+			if (isServer) then {
+				this setVariable ["BTC_cannot_lift",1,true];
+				this setVariable ["BTC_cannot_drag",1,true];
+				this setVariable ["BTC_cannot_load",1,true];
+				this setVariable ["BTC_cannot_place",1,true];
+				this addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];
+			};
+
+// Optional - set an object imovable by BTC Logistics
+	init: if (isServer) then {
+			this setVariable ["BTC_cannot_lift",1,true];
+			this setVariable ["BTC_cannot_drag",1,true];
+			this setVariable ["BTC_cannot_load",1,true];
+			this setVariable ["BTC_cannot_place",1,true];
+		  };
+
+//Custom Billboard  "Land_Billboard_F" Uncheck mark Enable Damage and Enable Simulation
+init: if (isServer) then {this SetObjectTextureGlobal [0,"images\onions_logo.paa"];};
+
+
+Attributes-Overview-Text:
+Eliminate Armed Rebellion Against NATO forces. Gather Intel on Location of Enemy Ammo Cache and Destroy it.

@@ -1,0 +1,20 @@
+Rather than create a seperate repositiory for each version of 1.50 I've opted to create a directory of all the files wich are different from BMR_Insurgency_v1_50.Altis
+Each of these folders are the mission names for each version of 1.50.
+The following instructions are an example of how to build Lingor version.
+
+1. Donwload all files from Altis version.
+	https://github.com/Jigsor/BMR_Insurgency.Altis
+
+2. Download Lingor files
+	https://github.com/Jigsor/BMR-Insurgency/tree/master/BMR_Insurgency_v1_50%20Variations/BMR_Insurgency_v1_50.lingor3
+
+3. Replace Altis versioned files with Lingor versioned files.
+	Do not replace the existing directories in Altis version only the files contained in the directories.
+	These directories in Altis version contain other existing vital files. Do not delete them.
+
+4. Rename the Altis version root folder
+	BMR_Insurgency.Altis
+	to
+	BMR_Insurgency_v1_50.lingor3
+	or something else of your choosing and create a pbo file of this directory.
+	Finished!
