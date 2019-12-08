@@ -120,7 +120,7 @@ class Params
 	"OPTRE Insurrectionists - Requirements :: @CBA_A3;@OPTRE",
 	"IFA3 Desert US Army - Requirements :: @CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE"
 	};
-	default = 6;
+	default = 3;
 	};
 	class INS_Dum_Param4//12
 	{
