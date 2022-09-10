@@ -116,6 +116,10 @@ The Named objects are not optional and mission will break if they are missing or
 		//Predator UAV CUP_B_USMC_DYN_MQ9
 			// editor customized loadout
 			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; createVehicleCrew this; BMRpredator1 = getPylonMagazines this; _nul = [this, 2, 1, {[_this] call anti_collision;[_this, BMRpredator1] call INS_replace_pylons;[_this] call add_UAV_crew}] execVM "vehrespawn.sqf";};
+		//Littlebird UAV	
+			init: if (isServer) then {createVehicleCrew this; this addweapon "CMFlareLauncher";this addmagazine "120Rnd_CMFlare_Chaff_Magazine"; _nul = [this, 2, 1, {[_this] call add_UAV_crew;[_this] call add_veh_flare;}] execVM "vehrespawn.sqf";};
+		//Stryker CUP_B_M1128_MGS_Desert
+			init: _nul = [this, 60, 1, {[_this, ["Desert",1], ["HideSlat_Woodland",0,"HideSlat_Desert",1]] call BIS_fnc_initVehicle;}] execVM "vehrespawn.sqf";
 
 	// RHS
 		//RHS_MELB_AH6M
@@ -149,6 +153,12 @@ The Named objects are not optional and mission will break if they are missing or
 			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]);this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];Harrierpylons1 = getPylonMagazines this;_nul = [this, 2, 1, {[_this] call anti_collision; [_this, Harrierpylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf";};
 		//FFAA UAV Predator dynamic loadout type "ffaa_ea_reaper"
 			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; PredatorPylons1 = getPylonMagazines this; createVehicleCrew this; _nul = [this, 2, 1, {[_this] call anti_collision; [_this, PredatorPylons1] call INS_replace_pylons; [_this] call add_UAV_crew}] execVM "vehrespawn.sqf";};
+			
+	// Unsung
+		//F4 Phantom example with dynamic editor loadout
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]);this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3];bmrF4Epylons1 = getPylonMagazines this; this animate ["wingfold_left", 1, true]; this animate ["wingfold_right", 1, true]; _nul = [this, 2, 1, {[_this] call anti_collision; [_this] call INS_foldUnsung_wings; [_this, bmrF4Epylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf";};
+		//Cobra currently does not support dynamic loadouts
+			init: if (isServer) then {this setVectorUP (surfaceNormal [(getPosATL this) select 0,(getPosATL this) select 1]); this setPos [(getPosATL this) select 0,(getPosATL this) select 1,((getPos this) select 2) + 0.3]; _nul = [this, 30, 1, {[_this] call anti_collision;}] execVM "vehrespawn.sqf";};
 
 // Opfor Supply Box or any opfor ammo box
 	name: INS_sup_Cbox

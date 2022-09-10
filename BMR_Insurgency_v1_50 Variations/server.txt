@@ -1,0 +1,169 @@
+//======================================================= HEADLESS CLIENT	https://community.bistudio.com/wiki/Arma_3_Headless_Client
+headlessClients[]={"127.0.0.1"};			        				// Valid Headless Client IPs
+localClient[]={"127.0.0.1"};										// Client IPs to assign unlimited bandwidth
+
+//======================================================= STEAM PORTS
+steamPort = 2302;     												// default 8766, needs to be unique if multiple serves on same box
+steamQueryPort = 2303;    											// default 27016, needs to be unique if multiple servers on same box
+
+//======================================================= STEAM QUERY PACKET LENGTH
+steamProtocolMaxDataSize = 2048;									// Limit for maximum Steam Query packet length / modlist length limit in Arma 3 Launcher. (Since Arma 3 1.99+).  
+
+//======================================================= GENERAL SETTINGS
+hostname = "My Fancy Arma Server";// Name of the server displayed in the public server list
+maxPlayers = 31;                                                    // Maximum amount of players, including headless clients. Anybody who joins the server is considered a player, regardless of their role or team.
+passwordAdmin = "AdminsPassword123";                                      // Password to login as admin. Open the chat and type: #login password
+//password = "getinsome";                                             // Password required to join the server
+admins[] = {"765xxxxxxxxxxxxxx","765xxxxxxxxxxxxxx"};// UIDs authorized to log in as admin on server
+persistent = 1;                                                     // If set to 1, missions will continue to run after all players have disconnected; required if you want to use the -autoInit startup parameter
+statisticsEnabled = 1;                                              // BIS Analytics default 1, allows to opt-out of analytics for the server by using 0
+
+//======================================================= GAMEPLAY
+forceRotorLibSimulation = 0;										// Enforces the Advanced Flight Model on the server. Default = 0 (up to the player). 1 - forced AFM, 2 - forced SFM.
+drawingInMap = 1;													// Enables or disables the ability to draw lines in map. Default = 1 (since Arma 3 1.63+).
+
+//======================================================= CLIENT STABILITY
+//kickClientsOnSlowNetwork[] = {0,0,0,0};                           // Defines if {<MaxPing>, <MaxPacketLoss>, <MaxDesync>, <DisconnectTimeout>} will be logged (0) or kicked (1) (since Arma 3 1.56+)
+//maxPing = 350;                                                    // Max ping value until server kick the user (since Arma 3 1.56+)
+//maxPacketLoss = 50;												// Max packetloss value until server kick the user (since Arma 3 1.56+)
+//maxDesync = 150;													// Max desync value until server kick the user (since Arma 3 1.56+)
+//disconnectTimeout = 90;											// Server wait time before disconnecting client, default 90 seconds, range 5 to 90 seconds. (since Arma 3 1.56+)
+
+//======================================================= VOICE CHAT
+disableVoN = 0;     												// If set to 1, voice chat will be disabled
+//disableChannels[]={{0,TRUE,TRUE},{1,TRUE,TRUE},{2,FALSE,FALSE},{3,FALSE,FALSE},{4,FALSE,FALSE},{5,FALSE,FALSE}};
+vonCodecQuality = 10;    											// Supports range 1-30; 1-10 is 8kHz (narrowband), 11-20 is 16kHz (wideband), 21-30 is 32kHz (ultrawideband) SPEEX codec and 48kHz for OPUS codec. Higher = better sound quality, more bandwidth consumption
+vonCodec = 1;                                                       // Value 0 uses older SPEEX codec, while 1 switches to new IETF standard OPUS codec.
+
+//======================================================= VOTING
+// https://community.bistudio.com/wiki/Arma_3:_Mission_voting
+voteMissionPlayers = 1;												// Minimum number of players required before displaying the mission selection screen, if you have not already selected a mission in this config
+voteThreshold = 0.33;												// Percentage (0.00 to 1.00) of players needed to vote something into effect, for example an admin or a new mission. Set to 9999 to prevent random players being voted as admins.
+allowedVoteCmds[] = {
+	{"admin", true, true},	// undefined third parameter will use global "voteThreshold"
+	{"missions", true, true, 0.50},
+	{"mission", true, true, 0.50},
+	{"kick", true, true, 0.50},
+	{"restart", false, false, -1}, // invalid threshold value. Will default to global "voteThreshold"
+	{"reassign", false, false, 0.5}
+};
+allowedVotedAdminCmds[] =
+{
+	{"mission", true, true},
+	{"missions", true, true},
+	{"restart", false, false}, // invalid threshold value. Will default to global "voteThreshold"
+	{"reassign", true, true},
+	{"kick", true, true}
+};
+
+//======================================================= TIME OUTS
+// (since Arma 3 1.90+ PerformanceBranch)
+kickTimeout[] = {{0,0},{1,0},{2,0},{3,0}}; // disable kickTimeout for all four kickID types
+//kickTimeout[] = { {0, -1},{1, 180},{2, 180},{3, 180} };				// kickTimeout[] = { {kickID, timeout}, ... };
+																		// kickID (type to determine from where the kick originated e.g. admin or votekick etc.)
+
+																			// 0 - manual kick (vote kick, admin kick, bruteforce detection etc.)
+																			// 1 - connectivity kick (ping, timeout, packetloss, desync)
+																			// 2 - BattlEye kick
+																			// 3 - harmless kick (wrong addons, steam timeout or checks, signatures, content etc.)
+
+																		// timeout = in seconds how long until kicked player can return
+
+																			// >0 seconds
+																			// -1 until missionEnd
+																			// -2 until serverRestart
+votingTimeOut[] = {30, 90};											// 60 seconds for ready, 90 for notReady
+briefingTimeOut[] = {10, 30};										// 60 seconds for ready, 90 for notReady
+debriefingTimeOut[] = {20, 120};									// 60 seconds for ready, 90 for notReady
+lobbyIdleTimeout = 40;												// Value 0 turns feature off. The amount of time the server will wait before force-starting a mission without a logged-in Admin.
+
+//======================================================= LOGGING
+timeStampFormat = "short";                						    // Timestamp format used on each report line in the server RPT logs. Possible values are "none" (default), "short", "full"
+logFile = "A3_Coop_3.log";      								    // Server console output filename
+
+//======================================================= SECURITY		https://community.bistudio.com/wiki/Arma_3:_Server_Security
+BattlEye = 1;								                        // Default is 1 = On, 0 = Off. Requires BattlEye Anti-Cheat installed on server and clients joining the server
+battleyeLicense = 1;							                    // Required in the server's config as well as the HC.Arma3Profile to skip the press ok for battleeye licence agreement terms when reinstalled or updated.
+verifySignatures = 2;    											// If set to 2, players with unknown or unsigned mods won't be allowed join (default: 0, recommended: 2)
+//kickDuplicate = 1;    										    // If set to 1, players with an ID that is identical to another player will be kicked (recommended: 1)
+regularCheck = "";
+allowedFilePatching = 2;											// Prevent or allow file patching for the clients (including the HC) (since Arma 3 1.49+). 0 = no clients (default), 1 = headless client only, 2 = all clients.
+//serverCommandPassword = "ShVQArtpGdc5aDQq";						// Password required by server to execute commands
+allowedLoadFileExtensions[] = {"wav","hpp","sqs","sqf","fsm","cpp","paa","txt","xml","inc","ext","sqm","ods","fxy","lip","csv","kb","bik","bikb","html","htm","biedi"};  // Only allow files with those extensions to be loaded via loadFile command (since Arma 3 v1.19.124216)
+allowedPreprocessFileExtensions[] = {"hpp","sqs","sqf","fsm","cpp","paa","txt","xml","inc","ext","sqm","ods","fxy","lip","csv","kb","bik","bikb","html","htm","biedi"};  // Only allow files with those extensions to be loaded via preprocessFile/preprocessFileLineNumber commands (since Arma 3 v1.19.124323)
+allowedHTMLLoadExtensions[] = {"htm","html","xml","txt"};			// Only allow files with those extensions to be loaded via HTMLLoad command (since Arma 3 v1.27.126715)
+allowedHTMLLoadURIs[] = {};											// Uncomment to define server-level restrictions for URIs
+
+//======================================================= EVENT SCRIPTS 	http://community.bistudio.com/wiki/ArmA:_Server_Side_Scripting
+onUserConnected = "";    											// command to run when a player connects
+onUserDisconnected = "";   											// command to run when a player disconnects
+doubleIdDetected = "";    											// command to run if a player has the same ID as another player in the server
+onUnsignedData = "kick (_this select 0)";    						// command to run if a player has unsigned files
+onHackedData = "kick (_this select 0)";    							// command to run if a player has tampered files
+onDifferentData = "kick (_this select 0)";							// data with a valid signature, but different version than the one present on server detected
+
+//======================================================= WELCOME MESSAGE ("message of the day")
+motd[] = {
+	"Welcome to the Official =BMR= Insurgency Server Hosted By Onion Gamers",
+		"Please join TeamSpeak3 for great comms @ ts3.bmr-squad.com",
+		"discord.bmr-squad.com",
+	"Server restarts every week or less...",
+	"Welcome to the Official =BMR= Insurgency Server Hosted By Onion Gamers",
+		"Please join TeamSpeak3 for great comms @ ts3.bmr-squad.com",
+		"discord.bmr-squad.com",
+	"Server restarts every week or less...",
+	"Welcome to the Official =BMR= Insurgency Server Hosted By Onion Gamers",
+		"Please join TeamSpeak3 for great comms @ ts3.bmr-squad.com",
+		"discord.bmr-squad.com",
+	"Server restarts every week or less...",
+	"Welcome to the Official =BMR= Insurgency Server Hosted By Onion Gamers",
+		"Please join TeamSpeak3 for great comms @ ts3.bmr-squad.com",
+	"Server restarts every week or less..."
+};
+motdInterval = 240;                                                 // Number of seconds between each message
+
+//======================================================= DEFAULT MISSION
+
+randomMissionOrder = true;											// Random start / next selection with one of missions from mission rotation list.
+class Missions {
+	class bmr_insurgency1 {
+		//template = "BMR_Insurgency_v1_50.clafghan";
+		//template = "BMR_Insurgency_v1_50.Kapaulio";
+		template = "BMR_Insurgency_v1_50.WL_Rosche";
+		difficulty = "custom";
+	};
+	class bmr_insurgency2 {
+		template = "BMR_Insurgency_v1_50.Napf";
+		difficulty = "custom";
+	};
+	class bmr_insurgency3 {
+		template = "BMR_Insurgency_v1_50.napfwinter";
+		difficulty = "custom";
+	};
+	class bmr_insurgency4 {
+		template = "BMR_Insurgency_v1_50_CUP.tem_anizay";
+		difficulty = "custom";
+	};
+	class bmr_insurgency5 {
+		template = "BMR_Insurgency_v1_50_CUP.fallujah";
+		difficulty = "custom";
+	};
+	class bmr_insurgency6 {
+		template = "BMR_Insurgency_v1_50_CUP.zargabad";
+		difficulty = "custom";
+	};
+	class bmr_insurgency7 {
+		template = "BMR_Insurgency_v1_50.Kapaulio";
+		difficulty = "custom";
+	};
+	class bmr_insurgency8 {
+		template = "BMR_Insurgency_v1_50_FFAA.lythium";
+		difficulty = "custom";
+	};
+	class bmr_insurgency9 {
+		template = "BMR_Insurgency_v1_50.cup_chernarus_A3";
+		difficulty = "custom";
+	};
+};
+forcedDifficulty = "custom";
+missionWhitelist[] = {};                                            // An empty whitelist means there is no restriction on what missions' available

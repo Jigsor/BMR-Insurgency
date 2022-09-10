@@ -1,0 +1,307 @@
+// How to add mod support to BMR Insurgency.
+
+// Example explains how to add one option for Opposing Army/ Mod Initialization lobby parameter.
+     In this example we will add 2 factions from the Unsung mod.
+     One option of Opposing Army/ Mod Initialization lobby parameter can represent 1 or 2 factions.
+
+
+Four scripts must be edited in BMR Insurgency.
+    1. Hpp\Parameters.hpp
+    2. init.sqf
+    3. INSfncs\common\fn_AI_unitPools.sqf
+    4. INS_definitions.sqf		This script may only need to be edited if you change player classes and some vehicles related to blufor players to moded types.
+    Optional: If you use and want the lobby option "Playable Opfor" to work correctly then the 2 following files should be edited.
+    5. INSfncs\common\fn_DefLoadoutOp4.sqf
+    6. INSfncs\common\fn_InsurgentVA.sqf
+
+
+
+//How to  modify these scripts.
+
+1. Launch Arma only with mods containing the factions and native weapons/vehicles equipment if any. (forth party weapons not supported).
+
+
+2. Open single player editor. Main menu big button on right named Editor.
+
+
+3. Generate a list of parent addons required by mod(s):
+    Place content anywhere Excluding any A3 content on the map.
+    Place units from factions(s), empty static weapons (non remote controllable), empty boats and empty vehicles including any transport helis you wish to fight against on the map.
+    Place any empty civilian vehicles provided by mod on the map.
+    Place aircraft with crew (no UAV units) on map to be used in airpatrole.
+    Save scenario unbinarized.
+    The new single player mission was saved as Unsung_Mod_Test and is located here:
+    C:\Users\MainUser\Documents\Arma 3 - Other Profiles\Jigsor\missions\Unsung_Mod_Test.Stratis
+    List of addons is in mission.sqm
+
+    addons[]=
+    {
+		"uns_main",
+		"uns_boats_c",
+		"uns_men_US_1AC_68",
+		"uns_men_USAF",
+		"CSJ_UH1Gun_c",
+		"uns_OV10_c",
+		"uns_skymaster_c",
+		"uns_C130",
+		"uns_ch53_c",
+		"uns_F4e_c",
+		"UNS_F111_c",
+		"uns_dc3_c",
+		"uns_A7_c",
+		"uns_A1J_c",
+		"uns_oh6_c",
+		"uns_ch47a_c",
+		"uns_H21C_c",
+		"uns_AH1G_c",
+		"uns_ch34_c",
+		"uns_men_NZ_c",
+		"UNS_TankCrew",
+		"uns_wheeled3_c",
+		"uns_m35_c",
+		"uns_Wheeled_w_c",
+		"uns_men_USMC_65",
+		"uns_m274_c",
+		"PBR_Crew",
+		"uns_PBR_c",
+		"uns_men_US_1ID",
+		"uns_men_USMC_68",
+		"uns_men_US_5SFG",
+		"uns_static_c",
+		"uns_stabo",
+		"uns_m113_c",
+		"uns_men_US_Arty",
+		"uns_Arty_c",
+		"uns_m107_c",
+		"uns_m48a3_c",
+		"uns_sheridan_c",
+		"uns_men_NVA_crew",
+		"uns_men_VC_regional",
+		"uns_men_VC_mainforce_68",
+		"uns_men_VC_mainforce",
+		"uns_men_VC_local",
+		"uns_men_VC_recon",
+		"uns_men_VC_mainforce",
+		"uns_men_VC_mainforce_67",
+		"uns_t34_t55_c",
+		"UNS_sampan",
+		"uns_bunkers",
+		"csj_seaobj",
+		"uns_AAA_c",
+		"uns_pt76_c",
+		"uns_men_NVA_68",
+		"uns_Type63_c",
+		"uns_men_NVA_65",
+		"uns_btr_c",
+		"uns_wheeled_e_c",
+		"uns_men_US_11ACR",
+		"uns_men_US_SOG",
+		"uns_men_US_SEAL",
+		"uns_men_US_1AC",
+		"uns_men_US_25ID",
+		"uns_men_US_6SFG",
+		"uns_uh1d_c",
+		"uns_civ",
+		"uns_static_c",
+		"uns_mig21_c",
+		"uns_an2_c",
+		"uns_men_NVA_daccong",
+		"uns_A4_c",
+		"UNS_A6_c",
+		"uns_men_ROK"
+    };
+
+    You will need to add this list of strings later to init.sqf
+
+
+4. Edit Hpp\Parameters.hpp.
+    Add a proceeding new number in this case 23 to the end of values[]={1,2,.....  list representing our new lobby option like this -
+    values[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
+    Add the text you see in the lobby representing the readable option to end of  texts[]={    like this -
+    "UNSUNG VC and PAVN- Requirements :: @Unsung"
+
+    Careful not to add a comma to the end of lists in arma scripts or configs.
+
+	
+	class INS_op_faction//11
+	{
+	title = "		Opposing Army/Mod Initialization";
+	values[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
+	texts[]={
+	"CSAT - Requirements :: None",
+	"AAF - Requirements :: None",
+	"AAF and FIA - Requirements :: None",
+	"CSAT Pacific - Requirements :: Apex Expansion",
+	"CSAT Pacific and Syndikat Apex - Requirements :: Apex Expansion",
+	"LDF and Spetsnaz - Requirements :: Contact DLC",
+	"LDF and Looters - Requirements :: Contact DLC",
+	"Spetsnaz and FIA - Requirements :: Contact DLC",
+	"RHS Armed Forces of the Russian Federation - Requirements :: @RHSAFRF",
+	"RHS Desert Armed Forces of the Russian Federation - Requirements :: @RHSAFRF",
+	"RHS GREF Chenarus Ground Forces and Nationalist Troops - Requirements :: @RHSAFRF;@RHSUSAF;@RHSGREF",
+	"RHS Serbian Armed Forces - Requirements :: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF",
+	"Project OPFOR Islamic State of Takistan/Sahrani and Afghan Militia - Requirements ::  @RHSAFRF;@RHSUSAF;@RHSGREF;@Project_OPFOR",
+	"Syrian Arab Army and Islamic State - Requirements :: (@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF;@ISC)",
+	"CUP Takistan Army and Takistan Militia - Requirements :: @CBA_A3;@cup_units;@cup_weapons;@cup_vehicles",
+	"CUP Armed Forces of the Russian Federation - Requirements :: @CBA_A3;@cup_units;@cup_weapons;@cup_vehicles",
+	"Massi CSAT Army and Middle East Insurgents - Requirements :: @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
+	"Massi Takistan Army and Takistan Insurgents - Requirements :: @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
+	"Massi Africian Rebel Army and Civilian Rebel supporters - Requirements :: @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
+	"OPTRE Insurrectionists - Requirements :: @CBA_A3;@OPTRE",
+	"IFA3 Desert US Army - Requirements :: @CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE",
+	"UNSUNG VC - Requirements :: @Unsung",
+	"UNSUNG VC and PAVN- Requirements :: @Unsung"
+	};
+	default = 3;// this represents the default value/faction mission will start with.
+	};
+
+
+5. Editing init.sqf.
+    Add new succeeding case number to bottom of EOS switch case list. Example.
+	case 23: {
+	// @Unsung VC and PAVN
+		_requiredAddons = ["uns_main"];
+		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
+			activateAddons ["uns_main","uns_boats_c","uns_men_US_1AC_68","uns_men_USAF","CSJ_UH1Gun_c","uns_OV10_c","uns_skymaster_c","uns_C130","uns_ch53_c","uns_F4e_c","UNS_F111_c","uns_dc3_c","uns_A7_c","uns_A1J_c","uns_oh6_c","uns_ch47a_c","uns_H21C_c","uns_AH1G_c","uns_ch34_c","uns_men_NZ_c","UNS_TankCrew","uns_wheeled3_c","uns_m35_c","uns_Wheeled_w_c","uns_men_USMC_65","uns_m274_c","PBR_Crew","uns_PBR_c","uns_men_US_1ID","uns_men_USMC_68","uns_men_US_5SFG","uns_static_c","uns_stabo","uns_m113_c","uns_men_US_Arty","uns_Arty_c","uns_m107_c","uns_m48a3_c","uns_sheridan_c","uns_men_NVA_crew","uns_men_VC_regional","uns_men_VC_mainforce_68","uns_men_VC_mainforce","uns_men_VC_local","uns_men_VC_recon","uns_men_VC_mainforce","uns_men_VC_mainforce_67","uns_t34_t55_c","UNS_sampan","uns_bunkers","csj_seaobj","uns_AAA_c","uns_pt76_c","uns_men_NVA_68","uns_Type63_c","uns_men_NVA_65","uns_btr_c","uns_wheeled_e_c","uns_men_US_11ACR","uns_men_US_SOG","uns_men_US_SEAL","uns_men_US_1AC","uns_men_US_25ID","uns_men_US_6SFG","uns_uh1d_c","uns_civ","uns_static_c","uns_mig21_c","uns_an2_c","uns_men_NVA_daccong","uns_A4_c","UNS_A6_c","uns_men_ROK"];
+			[EAST]execVM "eos\OpenMe.sqf";
+		}else{INS_mod_missing = true;};
+	};
+
+    Open the mission.sqm of single player mission you created.
+    Find the required addon list below.
+    Copy the the addon entries and paste into lists above _requiredAddons and activateAddons.
+	Only "uns_main" is actually listed as required addon and in this case its safe to assume that if uns_main is detected then activate all the others which depend on uns_main, but to be safe you can list them all in _requiredAddons and activateAddons arrays.
+    If Your mod requires CBA as indicated by A3 launcher then add "CBA_main" to these lists.
+
+    Some mods utilize joint rails and or joint muzzles addons included in CBA. To find out if the mod needs these addons play the SP mission you created and open debug console.
+    In Watch line type command activatedAddons and then press enter. It will return a list of all addons that have been activated. Some are dynamic such as joint rails/muzzles and A3 addons.
+    Search through the list with cursor and find "asdg_jointrails","asdg_jointmuzzles". if any of these are present then also add them to lists _requiredaddons and activateAddons in the new block you created in init.sqf
+    Addons from base game such as addons that begin with a3, curator and 3den never need to be added to these lists. All arma addons including dlc are auto activated.
+
+    line-
+    [EAST]execVM "eos\OpenMe.sqf";
+    EAST is the parameter that will be assigned to all enemy. Best to use the native side of main major faction.
+    Options could be EAST which is opfor or RESISTANCE (alias INDEPENDENT). In the Green versions of BMR Insurgency  this passed parameter could be EAST or WEST as the main playable slots are INDEPENDENT.
+	
+6. Edit script INSfncs\common\fn_AI_unitPools.sqf
+    This script contains all AI vehicles, statics and unit classes.
+    The top half are blocks of lists used for objectives, civilians, civilian vehicles, airpatrol types and CAS type.
+    The objectives always only use a primary major faction.
+    We will add this block of lists to this top half
+
+	// UNSUNG - VC
+	if (_opposingArmies in [22,23]) then {// 22 and 23 are lobby option values defined in Parameters.hpp This list will be used if 	"UNSUNG VC - Requirements :: @Unsung" or "UNSUNG VC and PAVN- Requirements :: @Unsung" faction options are chosen
+		INS_Op4_side = EAST;
+		INS_men_list = ["uns_men_VC_mainforce_68_AT","uns_men_VC_mainforce_68_AS1","uns_men_VC_mainforce_68_HMG","uns_men_VC_mainforce_68_nco","uns_men_VC_mainforce_68_MED","uns_men_VC_mainforce_68_AS5","uns_men_VC_mainforce_68_RTO","uns_men_VC_mainforce_68_Rmrk","uns_men_VC_mainforce_68_AT2","uns_men_VC_mainforce_68_off","uns_men_VC_mainforce_68_Rmg","uns_men_VC_mainforce_68_Rmed"];// units wich defend objectives - typically main armies/non guerilla
+		INS_Op4_medic = "uns_men_VC_mainforce_68_MED";// One Medic
+		INS_Op4_Eng = "uns_men_VC_mainforce_68_SAP";// One Engineer
+		INS_Op4_pilot = ["uns_nvaf_pilot1"];// Pilots
+		INS_Op4_Veh_Light = ["uns_Type55_M40","uns_Type55_RR57","uns_Type55_MG","uns_Type55_LMG"];// Armed Wheeled Vehicles
+		INS_Op4_Veh_Tracked = ["uns_ot34_85_nva","uns_pt76","uns_t34_85_nva","uns_to55_nva","uns_Type63_mg","uns_ZSU57_NVA"];// Armed Tracked Vehicles
+		INS_Op4_Veh_Support = ["uns_zil157","uns_nvatruck","uns_nvatruck_repair","uns_nvatruck_reammo","uns_nvatruck_refuel","uns_Type63_amb"];// Wheeled Support Vehicles
+		INS_Op4_Veh_AA = ["uns_ZSU_NVA","uns_nvatruck_zu23","uns_nvatruck_zpu"];// Anti Air Vehicles
+		INS_Op4_stat_weps = ["uns_ZU23_NVA","uns_dshk_twin_NVA","uns_dshk_high_NVA","uns_KS19_NVA","uns_mg42_low_NVA","uns_S60_NVA","uns_Type36_57mm_NVA"];// Static Weapons - Classes at the begining of list are more often favored.
+		INS_Op4_fixedWing = ["uns_mig21_MR","uns_Mig21_CAP","uns_an2_bmb","uns_an2_cas"];// Airpatrole fixed wings. If list is absent then Vanilla will be used if Airpatrole is allowed to run.
+		INS_Op4_helis = ["uns_Mi8TV_VPAF"];// Airpatrole helicopters If list is absent then Vanilla will be used if Airpatrole is allowed to run.
+		INS_civ_Veh_Car = ["C_Tractor_01_F"];// Civilian Cars. In this case since Unsung has none we use vanilla
+		INS_civ_Veh_Utl = ["C_Van_01_transport_F"];// Civilian Utility Vehicles. In this case since Unsung has none we use vanilla
+		INS_civlist = ["uns_civilian1","uns_civilian1_b1","uns_civilian1_b2","uns_civilian1_b3","uns_civilian2","uns_civilian2_b1","uns_civilian2_b2","uns_civilian2_b3","uns_civilian3","uns_civilian3_b1","uns_civilian3_b2","uns_civilian3_b3","uns_civilian4","uns_civilian4_b1","uns_civilian4_b2","uns_civilian4_b3"];// Civilian Units
+		INS_CAS = "uns_A1J_HCAS";// One class only for Close Air support. If list is absent then Vanilla will be used.
+	};
+
+    The second half of this script contains class list blocks used by the grid system.
+	We will add two factions here each in their own block and are represented by a new case number
+	BMR Insurgency currently supports 32 factions..WOW!
+	
+		case 31: {// UNSUNG - VC
+			_InfPool=	["uns_men_VC_mainforce_68_AT","uns_men_VC_mainforce_68_AS1","uns_men_VC_mainforce_68_HMG","uns_men_VC_mainforce_68_nco","uns_men_VC_mainforce_68_MED","uns_men_VC_mainforce_68_AS5","uns_men_VC_mainforce_68_RTO","uns_men_VC_mainforce_68_Rmrk","uns_men_VC_mainforce_68_AT2","uns_men_VC_mainforce_68_SAP","uns_men_VC_mainforce_68_RF4","uns_men_VC_mainforce_68_Rmg"];// Infantry
+			_ArmPool=	["uns_t34_76_vc","uns_ot34_85_nva","uns_pt76","uns_t34_85_nva","uns_to55_nva","uns_Type63_mg","uns_ZSU57_NVA"]; //Tracked vehicles usually armed
+			_MotPool=	["uns_Type55_twinMG","uns_Type55_M40","uns_Type55_RR57","uns_Type55_MG","uns_Type55_LMG"];// Wheeled vehicles - could be armed or not
+			_ACHPool=	["uns_Mi8TV_VPAF"];//Attack chopper - mission typically does not use this
+			_CHPool=	["uns_Mi8TV_VPAF_MG","uns_Mi8T_VPAF"];// Transport choppers. Can be lightly armed like side and tail gunners
+			_uavPool=	[];// never used in this mission
+			_stPool=	["uns_dshk_twin_VC","uns_pk_high_NVA","uns_dshk_bunker_closed_NVA","uns_m1941_82mm_mortarNVA","uns_dshk_armoured_NVA","uns_pk_bunker_low_NVA","uns_SPG9_73mm_NVA","Uns_D20_artillery","Uns_D30_artillery","uns_S60_VC","uns_Type74_VC","uns_ZPU2_VC","uns_ZPU4_VC","uns_ZU23_VC"];// static weapons
+			_shipPool=	["UNS_ASSAULT_BOAT_VC","UNS_PATROL_BOAT_NVA","UNS_Zodiac_NVA"];// Boats - must be small enough to avaid getting stuck
+			_diverPool=	["uns_men_VC_mainforce_68_AS1","uns_men_VC_mainforce_68_HMG","uns_men_VC_mainforce_68_nco","uns_men_VC_mainforce_68_MED","uns_men_VC_mainforce_68_AS5","uns_men_VC_mainforce_68_RTO","uns_men_VC_mainforce_68_Rmrk"];// units that man boats - usually divers
+			_crewPool=	["uns_men_NVA_crew_crewman"];// Land vehicle crewmen 
+			_heliCrew=	["uns_nvaf_pilot5"];// Helicopter crewmen
+			_issueNVG= false;// true gives them Night Vision Goggles if they spawn when its dark.
+		};
+		case 32: {// UNSUNG - PAVN
+			_InfPool=	["uns_men_NVA_daccong_ACR","uns_men_NVA_daccong_AA1","uns_men_NVA_daccong_AT2","uns_men_NVA_daccong_AT3","uns_men_NVA_daccong_AT","uns_men_NVA_daccong_AS6","uns_men_NVA_daccong_AS3","uns_men_NVA_daccong_AS2","uns_men_NVA_daccong_AS1","uns_men_NVA_daccong_AS5","uns_men_NVA_daccong_AS4","uns_men_NVA_daccong_LMG","uns_men_NVA_daccong_COM","uns_men_NVA_daccong_cov2","uns_men_NVA_daccong_cov3","uns_men_NVA_daccong_cov1","uns_men_NVA_daccong_cov6","uns_men_NVA_daccong_cov5","uns_men_NVA_daccong_cov7","uns_men_NVA_daccong_cov4","uns_men_NVA_daccong_MGS","uns_men_NVA_daccong_HMG","uns_men_NVA_daccong_MED","uns_men_NVA_daccong_MTS","uns_men_NVA_daccong_nco","uns_men_NVA_daccong_off","uns_men_NVA_daccong_RTO","uns_men_NVA_daccong_SAP2","uns_men_NVA_daccong_SAP3","uns_men_NVA_daccong_MRK","uns_men_NVA_daccong_TRI"];//"uns_men_NVA_daccong_SAP1" causes Warning Message: Bad vehicle type uns_men_NVA_daccong_LMG_Bag
+			_ArmPool=	["uns_ot34_85_nva","uns_pt76","uns_t34_85_nva","uns_to55_nva","uns_Type63_mg","uns_ZSU57_NVA"];
+			_MotPool=	["uns_Type55_twinMG","uns_Type55_M40","uns_Type55_RR57","uns_Type55_MG","uns_Type55_LMG","uns_BTR152_ZPU"];
+			_ACHPool=	["uns_Mi8TV_VPAF"];
+			_CHPool=	["uns_Mi8TV_VPAF_MG","uns_Mi8T_VPAF"];
+			_uavPool=	[];
+			_stPool=	["uns_dshk_twin_VC","uns_pk_high_NVA","uns_dshk_bunker_closed_NVA","uns_m1941_82mm_mortarNVA","uns_dshk_armoured_NVA","uns_pk_bunker_low_NVA","uns_SPG9_73mm_NVA","Uns_D20_artillery","Uns_D30_artillery","uns_S60_VC","uns_Type74_VC","uns_ZPU2_VC","uns_ZPU4_VC","uns_ZU23_VC"];
+			_shipPool=	["UNS_ASSAULT_BOAT_VC","UNS_PATROL_BOAT_NVA","UNS_Zodiac_NVA"];
+			_diverPool=	["uns_men_NVA_daccong_cov2","uns_men_NVA_daccong_cov3","uns_men_NVA_daccong_cov1","uns_men_NVA_daccong_cov4","uns_men_NVA_daccong_cov5","uns_men_NVA_daccong_SAP2"];
+			_crewPool=	["uns_men_NVA_crew_crewman","uns_men_NVA_daccong_AS4","uns_men_NVA_daccong_LMG","uns_men_NVA_daccong_AS6","uns_men_NVA_daccong_COM","uns_men_NVA_daccong_RTO"];
+			_heliCrew=	["uns_nvaf_pilot5"];
+			_issueNVG= false;
+		};
+
+
+		
+		
+    At the bottom of this script you need to add the next case, case 23.
+	You can see case 22 will use only one faction, faction 31 which is passed as a major and minor faction (_enemyFactions = [31,31]).  Where as case 23 will spawn a major and minor faction (_enemyFactions = [31,32]).
+	Major/majority being UNSUNG - VC
+	Minor/minority being UNSUNG - PAVN
+		
+	private "_enemyFactions";
+	switch (_opposingArmies) do {
+		// CSAT (no mods)
+		case 1: {_enemyFactions = [0,0]};
+		// AAF (no mods)
+		case 2: {_enemyFactions = [1,1]};
+		// AAF and FIA (no mods)
+		case 3: {_enemyFactions = [1,2]};
+		...
+		...
+		...
+		...
+		// UNSUNG - VC (@Unsung)
+		case 22: {_enemyFactions = [31,31]};
+		// UNSUNG - VC and PAVN (@Unsung)
+		case 23: {_enemyFactions = [31,32]};
+
+	};
+		
+		
+		
+7. Edit INS_definitions.sqf
+    This script does not need to be edited if intention is only to add opposing army/mod support loby option but it does contain class lists wich pertain to player.
+	
+	If mod you added has playable Blufor units and you swaped out the playable units for these moded versions you may add those class names to the Player class types lists.
+	These lists give these types some special abilities.
+	You may want to add modded blufor repair tucks to build the FARP with and unmaned UAV/UGV types which are serviceable at the fixed wing repair marker.
+	There maybe a few other lists you may want to add to aswell. All these lists are nottated what types of elements belong in these lists.
+    The end of these lines in this block describe what types of elements belong in these lists. If your mod does not contain suitable classes for these lists then you could substitue A3 classes from the same side.
+    Definitions that are not an array only support a single class.
+	
+8. Optional 
+    Edit INSfncs\common\fn_DefLoadoutOp4.sqf
+	 Add a new case corresponding to "Opposing Army/Mod Initialization" lobby option values wich gives the opfor player his default loadout.
+	 All opfor players are CSAT but are redressed with this script according to faction lobby option. 
+	 You can create a loadout in the editor with Virtual arsenal and export it with button in Arsenal. This will copy his loadout to the clipboard.
+	 This script does not follow the exact format of the Arsenal exporter but you can copy paste the bits you need into the format/method of this script or create your own format.
+
+9. Optional
+    Arsenal functionality and implementation has has gotten somewhat of an overhaul as of post BMR Insurgency v1.50 (github Dev build).
+    If any whitelisted options are chosen in the lobby you may need to edit the arsenal whitelists. Whitelisting is typically used for opfor players and you may want to add the deafault gear opfor players spawn with at the very least in 
+    INSfncs\common\fn_InsurgentVA.sqf
+	Lists here are broken into categories and should be self explainable.
+	If whitelisted options are used for blufor players then you may want to add allowed gear to
+	fn_BluforVA.sqf
+	
+	A nice feature of Arma's arsenal when whitelisting is used is that these whitelists can be fairly large and include items that may be from mods not currently loaded with no harm.
+
+	Another nice option is to swap blufor's and opfor's weapon crates to moded equivelants or substitutes in the editor.
+	Careful not to delete them as they are named and refferenced by scripts in the mission.
+	You may also want to arsenal white list items in these crates.
+    Oh,	and swap MHQs or other vehicles.
+	
+
+// Any Units, Equipment or Vehicles added in editor will make  the mods they come from a requirement to join the mission. The steps above are still required and do not conflict with adding moded content in the editor.
